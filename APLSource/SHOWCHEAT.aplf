@@ -1,0 +1,7 @@
+ SHOWCHEAT
+⍝ Andy 07/11/92
+⍝  Make it obvious that the player is a cheat !
+ Cheated←1
+ Colour←CheatColour
+ Table ⎕WS('BCOL'CheatColour)
+ StackNames ⎕WS¨⊂('FCOL'CheatColour)('BCOL'CheatColour)

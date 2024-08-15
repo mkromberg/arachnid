@@ -1,0 +1,7 @@
+ TIDY_UP;V
+⍝ Andy 24/03/93
+ ⎕EX'Arachnid'
+ V←' '~⍨¨↓⎕NL 2
+ V←V~'HelpText1' 'HelpText2' 'HelpText3' 'ICON_DATA' 'BITMAP_NAMES' 'BITMAP_DATA'
+ ⎕EX↑V,'ENABLE' 'DISABLE'
+ →

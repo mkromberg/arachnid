@@ -1,0 +1,6 @@
+ L HELP R
+⍝ Andy 20/02/93
+⍝ One day must put this in as a WINHELP application
+ 'HELPFORM'⎕WC'FORM'('CAPTION'(⊃L))('SIZE' 50 80)
+ 'HELPFORM.ED'⎕WC'EDIT'(1↓L)(0 0)(100 100)('VSCROLL' ¯1)('STYLE' 'MULTI')('EVENT'((⍳5)¯1))('HSCROLL' 0)
+ ⎕DQ'HELPFORM'

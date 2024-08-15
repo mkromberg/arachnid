@@ -1,0 +1,7 @@
+ CARDS←MOVEABLE STACK;BOOL                     ⍝ Identify moveable cards
+⍝ Andy 16/11/92
+ →0⍴⍨0=⍴CARDS←STACK⊃Stacks                     ⍝ Quit if no cards on this stack
+ BOOL←∧\Suits[CARDS]=Suits[⊃CARDS]             ⍝ Must be all same suit ..
+ BOOL∧←∧\Cards[CARDS]=¯1+Cards[⊃CARDS]+⍳⍴CARDS ⍝ .. and in a run
+ BOOL∧←Visible[CARDS]                          ⍝ .. and visible
+ CARDS←BOOL/CARDS                              ⍝ Return CARDS

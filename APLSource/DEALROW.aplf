@@ -1,0 +1,13 @@
+ DEALROW;DEAL                                 ⍝ Deal a row of cards
+⍝ Andy 28/12/92
+ DEAL←10↑UnDealt
+ →ShowDeal⍴⍨0≠⍴UnDealt←10↓UnDealt             ⍝ If no more to deal then
+ DISABLE MI_DealRow                           ⍝ disable ability to deal
+ShowDeal:
+ TITLE Deal+1
+ MovePtr←⊃⍴Moves←((MovePtr,4)↑Moves)⍪0        ⍝ Note deal
+ Visible[DEAL]←1                              ⍝ All dealt cards are visible
+ w_BitMapNames[DEAL]←BitMapNames[DEAL]        ⍝ set bitmaps
+ Stacks,⍨¨←DEAL                               ⍝ update stacks
+ StackNums DRAWSTACK¨Stacks                   ⍝ and display them
+ ENABLE MI_Undo                               ⍝ have made a move, so can undo

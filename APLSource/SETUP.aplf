@@ -1,0 +1,24 @@
+ SETUP
+⍝ To play Arachnid.  Andy 03/06/93
+⍝ Version 1 (I know what the next release of APL/W has in it)
+⍝ Improvements to be made: use HSCROLL in displaying cards, use WINHELP for help
+ Cards←104⍴⍳13                                   ⍝ Have two packs of cards
+ CardNames←'Ace' 'Two' 'Three' 'Four' 'Five' 'Six' 'Seven' 'Eight' 'Nine' 'Ten' 'Jack' 'Queen' 'King'
+ Suits←26/⍳4                                     ⍝ ordered SSHHDDCC
+ SuitNames←'Spades' 'Hearts' 'Diamonds' 'Clubs'
+ StackNums←⍳⍴StartStacks←6 5 5 6 5 5 6 5 5 6     ⍝ Define initial lengths
+ Colour←NormalColour←0 128 0 ⋄ CheatColour←128 0 0
+ Table←'Arachnid'
+ BITMAP_NAMES{⍺ ⎕WC'BITMAP' '',⍵}¨BITMAP_DATA
+ Icon←Table,'_Icon'
+ Icon ⎕WC'ICON' '',ICON_DATA
+ Table ⎕WC'FORM'('COORD' 'PIXEL')('SIZE' 300 600)('BCOL'Colour)('EVENT'(33 'QUIT'))('ICON'Icon)('AUTOCONF' 0)('3D' 'NONE')
+ '.'⎕WS'ICON'Icon
+ MKMENUBAR
+ StackNames←↓'⊂Arachnid.S⊃,ZI2'⎕FMT StackNums
+ TableSize←300 600
+ BackBitMapName←⊂'BITMAPBACK'
+ BitMapNames←↓'P⊂BITMAP⊃ZI9'⎕FMT Cards+13×¯1+Suits
+ ⎕RL←+/⎕TS
+ NEWDEAL 1
+ ⎕DQ Table

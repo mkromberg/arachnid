@@ -1,0 +1,33 @@
+ MKMENUBAR;MB;SELECT
+⍝ Andy 07/11/92
+⍝
+ MB←(Table,'.MB.')∘,                 ⍝ These two fns remove a few
+ SELECT←('EVENT' 30)∘,∘⊂             ⍝ encloses and brackets later on
+ ENABLE←⎕WS∘'ACTIVE' 1               ⍝ and these two make for better
+ DISABLE←⎕WS∘'ACTIVE' 0              ⍝ reading all over the place
+ MI_Undo MI_Redo MI_DealRow←MB¨'HIST.UNDO' 'HIST.REDO' 'DEALROW'
+⍝
+ (Table,'.MB')⎕WC'MENUBAR'
+⍝
+ (MB'GAME')⎕WC'MENU' '&Game'
+ (MB'GAME.Q')⎕WC'MENUITEM' '&New Deal'(SELECT'REDEAL')
+ (MB'GAME.R')⎕WC'MENUITEM' '&Replay'(SELECT'PLAYAGAIN')
+ (MB'GAME.SEP')⎕WC'SEPARATOR'
+ (MB'GAME.QUIT')⎕WC'MENUITEM' '&Quit'(SELECT'QUIT')
+ (MB'GAME.QAPL')⎕WC'MENUITEM' 'Quit to &APL'(SELECT'QUIT')
+⍝
+ MI_DealRow ⎕WC'MENUITEM' '&Deal Row'(SELECT'DEALROW')
+⍝
+ (MB'HIST')⎕WC'MENU' '&Moves'
+ MI_Undo ⎕WC'MENUITEM' '&Undo'(SELECT'UNDO')
+ MI_Redo ⎕WC'MENUITEM' '&Redo'(SELECT'REDO')
+⍝
+ (MB'CARD')⎕WC'MENU' '&Cards'
+ (MB'CARD.S')⎕WC'MENUITEM' '&Show Stack'(SELECT'DISPSTACK')
+ (MB'CARD.L')⎕WC'MENU' '&Locate'
+ MENUCARDS¨SuitNames
+⍝
+ (MB'HELP')⎕WC'MENU' '&Help'('ALIGN' 'RIGHT')
+ (MB'HELP.H1')⎕WC'MENUITEM' '&Rules'('EVENT' 30 'HELP'HelpText1)
+ (MB'HELP.H2')⎕WC'MENUITEM' '&Moves'('EVENT' 30 'HELP'HelpText2)
+ (MB'HELP.H3')⎕WC'MENUITEM' '&Menu'('EVENT' 30 'HELP'HelpText3)

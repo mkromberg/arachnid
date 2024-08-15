@@ -1,0 +1,11 @@
+ CARDS ADDTO STACK                   ⍝ Move CARDS to Stack or Depot
+⍝ Andy 02/03/92
+ →(ToDepot 0 ToStack)[2+×STACK]
+ToStack:
+ Stacks[STACK],⍨←⊂CARDS              ⍝ add to destination stack
+ STACK DRAWSTACK STACK⊃Stacks        ⍝ and display changes
+ →0
+ToDepot:
+ Depots[-STACK]←⊂CARDS               ⍝ Add to depot, but nothing to draw
+ →0⍴⍨~∧/0=⊃∘⍴¨Stacks                 ⍝ If all cards now off table ..
+ MESSAGE('Well done')(Cheated/' even if you did cheat')

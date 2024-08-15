@@ -1,0 +1,4 @@
+ REDEAL
+⍝ Andy 29/12/92
+ →0⍴⍨~QUESTION'APL Arachnid' 'Do you really want to redeal ?'
+ NEWDEAL 1

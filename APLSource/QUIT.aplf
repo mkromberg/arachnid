@@ -1,0 +1,5 @@
+ QUIT MSG
+⍝ Andy 24/03/93
+ →APL⍴⍨'QAPL'≡¯4↑⊃MSG    ⍝ Either quit APL altogether
+ ⎕OFF
+APL:TIDY_UP                ⍝ or return neatly to session

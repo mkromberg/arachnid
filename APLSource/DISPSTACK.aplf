@@ -1,0 +1,28 @@
+ DISPSTACK;STACK;CSTYLE;CARDS;SCForm
+⍝ Andy 25/05/93
+⍝ Identify which stack to show, then display all visible cards
+⍝ Andy 24/11/2011
+⍝ If you click outside the table, then generate a MsgBox and continue, rather than generating an APL error
+⍝ CSTYLE←Table ⎕WG'CURSOR'
+⍝ Table ⎕WS'CURSOR' 6
+ STACK←SELECT_STACK 0.5×TableSize
+ :If ~STACK∊⍳⍴Stacks
+     MESSAGE'Error selecting stack' 'You must click on one of the stacks'
+     →0
+ :EndIf
+⍝ Table ⎕WS'CURSOR'CSTYLE
+ CARDS←⌽STACK⊃Stacks                           ⍝ Show highest as leftmost
+ →NotEmpty⍴⍨0≠⍴CARDS←(Visible[CARDS])/CARDS    ⍝ - but only visible cards
+ MESSAGE('Stack ',⍕STACK)('No Cards Visible')
+ →0
+NotEmpty:
+ SCFSize←(CardSize+0 6)×1,4⌊⍴CARDS
+ SCForm←'SHOWC'
+ SCForm ⎕WC'FORM'('Stack ',⍕STACK)('SIZE'SCFSize)('EVENT' 31 'DISPRESIZE')('DATA'(CARDS 0))('COORD' 'PIXEL')('MAXBUTTON' 0)('MINBUTTON' 0)('VISIBLE' 0)
+ (SCForm,'.MB')⎕WC'MENUBAR'
+ (SCForm,'.MB.Q')⎕WC'MENUITEM' '&Quit'('EVENT' 30 1)
+ SCFSize←0 0
+ 1 ⎕NQ SCForm 31,⊃,/SCForm ⎕WG'POSN' 'SIZE'
+ SCForm ⎕WS'VISIBLE' 1
+ ⎕DQ SCForm
+ ⎕EX SCForm

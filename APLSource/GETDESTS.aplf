@@ -1,0 +1,25 @@
+ DESTS←FROM GETDESTS CARDS;TOP;EMPTY;CARD;STACKS
+⍝ Andy 30/12/92
+⍝ Identify where CARD could be put. For each category, go from left to right
+⍝ Best is card of same suit, then a different suit, and lastly empty stacks
+⍝ If FROM is an option, put it 1st (’cos the possible locations are
+⍝ rotated before being used).  If FROM is the only option, then really we
+⍝ have no possible places to move, so suppress it.
+ DESTS←⍬
+ →0⍴⍨0=⍴CARDS                             ⍝ Selected empty stack
+ CARD←CARDS[⍴CARDS]                       ⍝ Ensure CARD is scalar
+ STACKS←Stacks                            ⍝ Must consider the state of the
+ STACKS[FROM]↓⍨←⍴CARDS                    ⍝ game without CARDS present
+ TOP←⊃¨STACKS                             ⍝ Identify top card of each stack
+ DESTS←(~EMPTY←0=⊃∘⍴¨STACKS)/TOP          ⍝   but exclude empty stacks
+ DESTS←(Cards[DESTS]=1+Cards[CARD])/DESTS ⍝ Remove unusable stacks
+ DESTS←DESTS[⍋Suits[DESTS]≠Suits[CARD]]   ⍝ Sort into order as above
+ DESTS←(TOP⍳DESTS),EMPTY/StackNums        ⍝   and tack on empty stacks
+ →NotSuit⍴⍨13≠⍴CARDS                         ⍝ If is all one suit, then make
+ DESTS←(⊃DESTS),(-1++/0≠⊃∘⍴¨Depots),1↓DESTS ⍝ the second option off the table
+NotSuit:
+ →END⍴⍨~FROM∊DESTS,0                      ⍝ If FROM not a dest, quit
+ DESTS←(DESTS~FROM),FROM                  ⍝ Want here last
+ DESTS←(DESTS≢,FROM)/DESTS                ⍝ If no where else to move to, quit
+END:
+ DESTS←¯1⌽DESTS                           ⍝ Rotate

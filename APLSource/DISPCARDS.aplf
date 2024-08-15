@@ -1,0 +1,6 @@
+ DISPCARDS MSG;CARDS;NCARDS;PTS
+⍝ Andy 25/01/93
+ CARDS NCARDS←SCForm ⎕WG'DATA'
+ CARDS←(((⍴CARDS)-NCARDS)⌊¯1+4⊃MSG)↓CARDS   ⍝ How many cards can be shown
+ PTS←¯1+⍳⍴CARDS←(NCARDS⌊⍴CARDS)↑CARDS       ⍝ and which ones ?
+ (SCForm,'.I')⎕WC'IMAGE'(0(PTS×CardWidth))('BITMAP'(BitMapNames[CARDS]))

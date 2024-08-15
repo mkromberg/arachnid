@@ -1,0 +1,8 @@
+ MOUSECLICK MSG;FROM
+⍝ Andy 28/12/92
+ →0⍴⍨2=2⊃MSG              ⍝ Is best to have a callback for MOUSE_UP
+ FROM←⍎¯2↑⊃MSG            ⍝ Identify which stack has been selected
+ →Drag⍴⍨1≠MSG[5]          ⍝ If left button, make move
+ MOVECARDS FROM ⋄ →0
+Drag:                     ⍝ else want to drag
+ DRAGCARDS FROM,MSG[3]    ⍝ Need to pass the vertical position to DRAGCARDS

@@ -1,0 +1,14 @@
+ LOCATE MSG;SUIT;CARD;LOC;S
+⍝ Andy 30/12/92
+ MSG←⊃MSG                                 ⍝ Identify selected card: need both
+ SUIT CARD←¯2↑(MSG='.')⊂MSG               ⍝ the suit and the face value
+ SUIT←(⊃¨SuitNames)⍳2⊃SUIT                ⍝ Convert this to numeric values
+ CARD←⍎2↓CARD                             ⍝ and identify which two cards are
+ LOC←((Suits=SUIT)∧(Cards=CARD))/⍳⍴Cards  ⍝ the wanted one.
+ MSG←'This card is not visible'
+ →DispMsg⍴⍨0=⍴LOC←Visible[LOC]/LOC        ⍝ Get only the visible cards
+ S←⊃⍪/Stacks,¨(⌽∘⍳∘⍴¨Stacks),[1.5]¨StackNums
+ LOC←(S[;1]∊LOC)⌿S[;2 3]
+ MSG←'⊂Is card⊃,I4,⊂ in stack⊃,I3'⎕FMT LOC
+DispMsg:
+ MESSAGE('Find the ',(CARD⊃CardNames),' of ',SUIT⊃SuitNames)(↓MSG)

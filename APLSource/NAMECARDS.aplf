@@ -1,0 +1,3 @@
+ R←STACK NAMECARDS CARDS
+⍝ Andy 02/12/92
+ R←StackNames[STACK],¨↓'P⊂.C⊃ZI5'⎕FMT CARDS

@@ -1,0 +1,11 @@
+ UNDODEAL;DEAL
+⍝ Andy 28/12/92
+⍝ Better just check that player really wants to cheat
+ →0⍴⍨~CHEAT'a row of cards to be dealt'       ⍝ An honest (this time) player
+ DEAL←⊃¨Stacks
+ UnDealt←DEAL,UnDealt                         ⍝ Put top cards back on pack
+ w_BitMapNames[DEAL]←BackBitMapName           ⍝ change their bitmaps
+ Visible[DEAL]←0                              ⍝ make them invisible
+ ENABLE MI_DealRow                            ⍝ allow a row to be dealt
+ TITLE Deal-1
+ StackNums DRAWSTACK¨Stacks←1↓¨Stacks         ⍝ Display new stacks

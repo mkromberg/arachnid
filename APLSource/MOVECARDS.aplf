@@ -1,0 +1,10 @@
+ MOVECARDS FROM;CARDS;CARD;TMP;TO
+⍝ Andy 28/12/92
+ CARDS←MOVEABLE FROM                       ⍝ identify cards that can be moved
+ →SameCards⍴⍨LastCards≡CARDS               ⍝ if new cards, then save them and
+ Possible←FROM GETDESTS LastCards←CARDS    ⍝ identify possible destinations
+SameCards:
+ →0⍴⍨0=TO←⊃Possible←1⌽Possible             ⍝ Use next possible dest
+ SAVEMOVE(¯1↑CARDS),FROM,TO
+ CARDS TAKEFROM FROM
+ CARDS ADDTO TO

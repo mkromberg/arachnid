@@ -1,0 +1,7 @@
+ MKBITMAPS BITMAPS;NAMES
+⍝ Andy 24/03/93
+⍝ Don’t do anything if the bitmaps saved are the correct size and all exist
+⍝ This is not normally called, since KEEPBITS is true
+ NAMES←(↓'P⊂BITMAP⊃ZI9'⎕FMT⍳52),BackBitMapName
+ →0⍴⍨(∧/9=⎕NC↑NAMES)∧(⍴⊃BITMAPS)≡⍴(⊃BackBitMapName)⎕WG'BITS'
+ NAMES ⎕WC¨↓(⊂'BITMAP'),(⊂''),(⊂'KEEPBITS' 1),BITMAPS,[1.5]⊂Cmap

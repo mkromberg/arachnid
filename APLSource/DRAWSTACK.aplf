@@ -1,0 +1,29 @@
+ STACK DRAWSTACK IS;TOPS;WAS;RHOI;RHOW;TODRAW;PTS
+⍝ Andy 28/12/92
+⍝ Alter display of STACK to reflect difference between what it was and
+⍝ what it is now IS. It may be necessary to redraw the entire stack if WAS
+⍝ and IS would have different Apart values.
+⍝
+ RHOI←⍴IS
+ RHOW←⍴WAS←CARDSIN STACK                      ⍝ Get current state
+ →Reduce⍴⍨0=⍴IS                               ⍝ Draw an empty stack
+ →WillFitMore⍴⍨0=⊃⍴Moves                      ⍝ Just accept the settings
+ →WillFit⍴⍨=/(0,Aparts)[1+RHOW,RHOI]          ⍝ If the settings are different
+ →Rebuild⍴⍨0=⍴WAS~IS                          ⍝ may just want to redraw as is
+ ⎕EX¨STACK NAMECARDS WAS~IS                   ⍝ junk the unwanted cards
+Rebuild:
+ TODRAW←⌽IS                                   ⍝ Stack drawn from top to bottom
+ RHOW←⍴WAS←⍬                                  ⍝ force to redraw stack
+ →Draw
+WillFit:
+ →Reduce⍴⍨RHOW>RHOI
+WillFitMore:
+ TODRAW←⌽IS~WAS                               ⍝ Just need to add extra cards
+Draw:
+ PTS←Aparts[RHOI]×¯1+(⍳RHOI)~⍳RHOW
+ PTS,[1.5]←3
+ PTS←(⊂'IMAGE'),(↓PTS),[1.5](⊂⊂'BITMAP'),∘⊂¨w_BitMapNames[TODRAW]
+ (STACK NAMECARDS TODRAW)⎕WC¨↓PTS
+ →0
+Reduce:
+ ⎕EX¨STACK NAMECARDS WAS~IS                   ⍝ Junk the unwanted cards

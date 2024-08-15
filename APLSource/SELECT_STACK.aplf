@@ -1,0 +1,12 @@
+ STACK←SELECT_STACK PS;SIZE;LOC;T;POSN
+⍝ Andy 26/04/96
+ STACK←0                                      ⍝ Assume this will fail
+ LOC←Table,'.LOC'                             ⍝ Make a LOCATOR, and return the
+ ⍎(1=≡PS)/'PS←⊂PS'                            ⍝ STACK under its final centre POSN
+ POSN SIZE←2↑PS                               ⍝ If only POSN given, SIZE←0 0
+ T←Table 3,(⊃1 0.5+.×POSN SIZE),0 0           ⍝ Prepare to move cursor to centre
+ LOC ⎕WC('LOCATOR')POSN SIZE('EVENT' 80 1)('SIZEABLE' 0)('CURSOR' 3) ⍝ of the newly-made LOCATOR
+ 1 ⎕NQ T ⋄ POSN←⎕DQ LOC
+ POSN←1 0.5+.×2 2⍴2↓POSN
+ →0⍴⍨∨/(POSN<0 0),POSN>TableSize              ⍝ Must remain on the table !
+ STACK←(2⊃POSN)+.>2∘⊃∘(⎕WG∘'POSN')¨StackNames ⍝ Identify the STACK

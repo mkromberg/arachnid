@@ -1,0 +1,23 @@
+ NEWDEAL ARG
+⍝ Andy 07/05/93
+ →Setup⍴⍨ARG=0                                ⍝ If ARG=0, then want to replay
+ ThisDeal←104?104                             ⍝           else deal anew.
+Setup:
+ TITLE 0                                      ⍝ No rows dealt as yet
+ →SameColour⍴⍨Colour≡NormalColour              ⍝ Ensure that the table is the
+ Colour←NormalColour                          ⍝ non-cheat colour.
+ Table ⎕WS'BCOL'Colour
+SameColour:
+ Depots←8⍴⍬
+ Cheated←0
+ Possible←LastCards←⍬                         ⍝ Will want both these later
+ MovePtr←⊃⍴Moves←0 4⍴0                        ⍝ card, from, to, made visible
+ Stacks←+/StartStacks                         ⍝ Build the stacks for this
+ UnDealt←Stacks↓ThisDeal                      ⍝ deal, and note unused ones
+ Stacks←(⊃,/StartStacks↑¨1)⊂Stacks↑ThisDeal
+ Visible←104⍴0 ⋄ Visible[⊃¨Stacks]←1          ⍝ Top cards are visible
+ w_BitMapNames←(⍴Cards)⍴BackBitMapName        ⍝ Keep track of what each card’s
+ (Visible/w_BitMapNames)←Visible/BitMapNames  ⍝ bitmap should be
+ SET_TABLE TableSize                          ⍝ Build the picture
+ ENABLE MI_DealRow                            ⍝ Can deal rows
+ DISABLE¨MI_Undo MI_Redo                      ⍝ but there is no history yet

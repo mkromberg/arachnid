@@ -1,0 +1,5 @@
+ R←CHEAT TXT
+⍝ Andy 07/05/93
+ TXT←'This move caused'TXT'Do you want to continue ?'
+ →0⍴⍨~R←QUESTION'You are about to cheat'TXT
+ SHOWCHEAT

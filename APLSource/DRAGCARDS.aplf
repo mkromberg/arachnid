@@ -1,0 +1,21 @@
+ DRAGCARDS FY;FROM;Y;LOCS;POSS;STACK;SP;DEST;DESTS;SN
+⍝ Andy 24/04/93 (With lots of help from JohnD)
+ FROM Y←FY
+ →CannotMove⍴⍨0=⍴STACK←FROM⊃Stacks               ⍝ Identify stack
+ SN←FROM⊃StackNames                              ⍝ .. and its name
+ LOCS←⊃¨SP←⌽⎕WG∘'POINTS'¨⎕WN SN                  ⍝ Get pos of top of each card
+ →CannotMove⍴⍨Y>⊃LOCS←((⊃LOCS)+⊃CardSize),LOCS   ⍝ If below top card, stop
+ STACK←(Y+.<LOCS)↑STACK                          ⍝ Get card clicked on
+ POSS←MOVEABLE FROM                              ⍝ If it is not one of those
+ →CannotMove⍴⍨~∧/STACK∊POSS                      ⍝ that could be moved, stop
+ DESTS←StackNums∊FROM GETDESTS STACK             ⍝ Where can we move to ?
+ SP←(SN ⎕WG'POSN')(CardSize+⊃SP)+1 ¯1×SP[⍴STACK] ⍝ POSN & SIZE of locator
+ →CannotMove⍴⍨0=DEST←SELECT_STACK SP             ⍝ Let punter select dest
+ →CannotMove⍴⍨~DESTS[DEST]
+MkMove:
+ LastCards←⍬                                     ⍝ Forget about last cards
+ SAVEMOVE(¯1↑STACK),FROM,DEST                    ⍝ Note these changes
+ STACK TAKEFROM FROM                             ⍝ and draw them
+ STACK ADDTO DEST
+ →0
+CannotMove:

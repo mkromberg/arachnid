@@ -1,0 +1,5 @@
+ TITLE N
+⍝ Andy 26/05/93
+ Deal←N
+ Table ⎕WS'CAPTION'('APL Arachnid : Deal ',(⍕Deal),' of 5')
+ '.'⎕WS'CAPTION'('APL Arachnid : Deal ',(⍕Deal),' of 5')     ⍝ For Icon

@@ -1,0 +1,12 @@
+ SET_TABLE SIZE;H;W;BITMAPS;BOTTOM
+⍝ Andy 24/03/93
+ H W←SIZE
+ CardSize←⍴(⊃BackBitMapName)⎕WG'BITS'
+L2:
+ MaxApart←⌊0.5×⊃CardSize                    ⍝ Never more than half a card apart
+ BOTTOM←H-2×MaxApart                        ⍝ Lowest card must fit onto table
+ Aparts←(⍳10),12 14 16 18 20 25
+ Aparts←MaxApart⌊Aparts[1⌈+/(BOTTOM÷⍳⍴Cards)∘.>Aparts]
+ StackNames ⎕WC¨↓(10 7⍴('STATIC')('COORD' 'INHERIT')('AUTOCONF' 0)('FCOL'Colour)('BCOL'Colour)('SIZE'(H W÷1 10))('EVENT'(1 2)'MOUSECLICK')),(⊂'POSN')∘,¨0,¨(W÷10)×¯1+⍳10
+ StackNums DRAWSTACK¨Stacks
+ TableSize←SIZE

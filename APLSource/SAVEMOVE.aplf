@@ -1,0 +1,5 @@
+ SAVEMOVE DETS
+⍝ Andy 28/12/92
+ MovePtr←⊃⍴Moves←((MovePtr,4)↑Moves)⍪4↑DETS ⍝ Make a note of this move.
+ ENABLE MI_Undo                             ⍝ Making a move, so Undo is valid
+ DISABLE MI_Redo                            ⍝ but Redo isn’t

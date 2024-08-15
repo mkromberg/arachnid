@@ -1,0 +1,14 @@
+ REDO;CARD;CARDS;FROM;TO
+⍝ Andy 28/12/92
+ MovePtr+←1
+ →RedoDeal⍴⍨0=⊃CARD FROM TO←3↑Moves[MovePtr;] ⍝ CARD=0 : row was dealt
+ CARDS←FROM⊃Stacks                       ⍝ Identify which cards have to be
+ CARDS←(CARDS⍳CARD)↑CARDS                ⍝ moved and move them.
+ CARDS TAKEFROM FROM
+ CARDS ADDTO TO
+ →End
+RedoDeal:DEALROW
+End:
+ ENABLE MI_Undo                          ⍝ If have Redone, can undo too
+ →0⍴⍨MovePtr<⊃⍴Moves                     ⍝ If this is the last move made
+ DISABLE MI_Redo                         ⍝ cannot have any more ReDo’s

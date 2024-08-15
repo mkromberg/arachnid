@@ -1,0 +1,4 @@
+ R←CARDSIN STACK                    ⍝ Return the cards in STACK
+⍝ Andy 13/11/92
+ →0⍴⍨0=⍴R←⎕WN STACK⊃StackNames      ⍝ Quit if no cards in this stack
+ R←⍎∘(¯3∘↑)¨R                       ⍝ otherwise return numeric values

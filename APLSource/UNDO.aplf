@@ -1,0 +1,27 @@
+ UNDO;CARD;FROM;TO;CARDS;CV            ⍝ Undo the last move
+⍝ Andy 28/12/92
+ CARD FROM TO CV←Moves[MovePtr;]
+ →UndoDeal⍴⍨0=CARD                     ⍝ Special case of undo a deal
+ →DoUndo⍴⍨~CV                          ⍝ If the move caused a card to be turned
+ →0⍴⍨~CHEAT'a card to be turned over'  ⍝ over then does player want to cheat ?
+DoUndo:
+ →BringBack⍴⍨TO<0
+ CARDS←TO⊃Stacks                       ⍝ Drop the cards that were put onto
+ CARDS←(CARDS⍳CARD)↑CARDS              ⍝ this stack, and display this change
+ Stacks[TO]↓⍨←⍴CARDS
+ TO DRAWSTACK TO⊃Stacks
+ →Replace
+BringBack:
+ CARDS←(TO←|TO)⊃Depots
+ Depots[TO]←⊂⍬
+Replace:
+ →WasVisible⍴⍨~CV                      ⍝ The card on the source stack was
+ CHVIS FROM(⊃FROM⊃Stacks)0             ⍝ turned over: turn it back again
+WasVisible:
+ CARDS ADDTO FROM
+ →End
+UndoDeal:UNDODEAL
+End:
+ ENABLE MI_Redo                        ⍝ If we’ve undone, can redo too.
+ →0⍴⍨0≠MovePtr←0⌈MovePtr-1             ⍝ Change pointer: if 0, then
+ DISABLE MI_Undo                       ⍝ disable Undo option

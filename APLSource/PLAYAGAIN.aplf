@@ -1,0 +1,4 @@
+ PLAYAGAIN
+⍝ Andy 29/12/92
+ →0⍴⍨~QUESTION'APL Arachnid' 'Do you want to start again ?'
+ NEWDEAL 0

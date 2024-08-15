@@ -1,0 +1,5 @@
+ MENUCARDS SUIT;N
+⍝ Andy 20/12/92
+ (N←MB'CARD.L.',⊃SUIT)⎕WC'MENU'('&',SUIT)
+ N←↓('⍞',N,'⍞,ZP⍞.C⍞I4')⎕FMT⍳13
+ N ⎕WC¨↓(⊂'MENUITEM'),CardNames,[1.5]⊂'EVENT' 30 'LOCATE'

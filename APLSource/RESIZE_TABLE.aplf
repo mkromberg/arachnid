@@ -1,0 +1,7 @@
+ Z←RESIZE_TABLE MSG
+⍝ Andy 28/12/92
+⍝ This is generated for more than just a resize
+⍝ MSG[5 6] & Table ⎕WG'SIZE'  should be different
+⍝ So don’t really want to keep TableSize variable
+ →0⍴⍨MSG[5 6]≡TableSize
+ SET_TABLE MSG[5 6]

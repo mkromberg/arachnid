@@ -1,0 +1,15 @@
+ CHVIS SCV;STACK;CARD;VIS;POS;NAME           ⍝ Change the visiblity of CARD
+⍝ Andy 16/11/92
+ STACK CARD VIS←SCV
+ Visible[CARD]←VIS                           ⍝ Save this change
+ Moves[MovePtr;4]←VIS                        ⍝ and record in Moves
+ LastCards←⍬                                 ⍝ force recalculation
+⍝ Now show the change
+ w_BitMapNames[CARD]←(BackBitMapName(BitMapNames[CARD]))[1+VIS]
+⍝
+ NAME←⊃STACK NAMECARDS CARD                  ⍝ CAN THIS BE DONE WITH
+ POS←NAME ⎕WG'POINTS'                        ⍝ ⎕WS EVENTUALLY ?
+ NAME ⎕WC'IMAGE'POS('BITMAP'(CARD⊃w_BitMapNames)) ⍝ and display it
+⍝
+⍝ NAME ⎕WS'BITMAP'(CARD⊃w_BitMapNames)
+⍝

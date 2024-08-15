@@ -1,0 +1,41 @@
+ R←DISPRESIZE MSG;SIZE;POSN;N;CARDS;NCV;SB;CARD
+⍝ Andy 25/01/93
+ R←1
+ POSN SIZE←1 0 1 0⊂MSG[3 4 5 6]        ⍝ Get useful stuff from DQ
+⍝ →0⍴⍨SIZE≡SCForm ⎕WG'SIZE'             ⍝ Default action if form has been moved
+ →0⍴⍨SIZE≡SCFSize                      ⍝ Still awaiting JJDs fix
+ R←0                                   ⍝ Suppress default action (RESIZE)
+ →0⍴⍨(2⊃SIZE)=2⊃SCFSize                ⍝ Don’t care about change in height
+ CARDS NCV←SCForm ⎕WG'DATA'
+ CardWidth←4+2⊃CardSize
+ N←(⍴CARDS)⌊⌊(2⊃SIZE)÷CardWidth        ⍝ How many cards can we get in ?
+ →0⍴⍨N=NCV                             ⍝ No significant change in size of form
+ SIZE[2]←N×CardWidth                   ⍝ Calculate width of form
+ SB←SCForm,'.SB'
+⍝ This code stinks, but let’s get the code working first !
+ →SBExists⍴⍨(⊂SB)∊⎕WN SCForm
+ CARD←1
+ →NSBNext⍴⍨N≥⍴CARDS                    ⍝ If more cards,
+ SIZE[1]+←20                           ⍝ need to allow for a scrollbar
+ →Next
+NSBNext:
+ SB←''                                 ⍝ else ensure we don’t make one
+ →Next
+SBExists:
+ CARD←SB ⎕WG'THUMB'
+ →SBENext⍴⍨N<⍴CARDS                    ⍝ If many cards, keep scrollbar
+ SIZE[1]+←¯20                          ⍝ else reduce form size
+ ⎕EX SB
+ SB←''                                 ⍝ Don’t want to make a scrollbar
+ CARD←1                                ⍝      and delete scrollbar
+SBENext:
+Next:
+ SCForm ⎕WS('POSN'POSN)('SIZE'SIZE)
+ SCFSize←SCForm ⎕WG'SIZE'
+ SCForm ⎕WS'DATA'(CARDS N)
+ →NoSB⍴⍨0=⍴SB
+ SB ⎕WC'SCROLL'('ALIGN' 'BOTTOM')('SIZE' 20 ⍬)('EVENT' 37 'DISPCARDS')('RANGE'(1+(⍴CARDS)-N))('STEP'(1,N))
+ 1 ⎕NQ SB 37 0 CARD
+ →0
+NoSB:
+ DISPCARDS ¯4↑1
